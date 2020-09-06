@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5206F6BC25052C9100DC78EB /* apendTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5206F6BB25052C9100DC78EB /* apendTaskViewController.swift */; };
 		5211985B2500A77500D5A5B1 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521198592500A77500D5A5B1 /* CustomCell.swift */; };
 		5211985C2500A77500D5A5B1 /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5211985A2500A77500D5A5B1 /* CustomCell.xib */; };
 		523C877224FCCB140007A182 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523C877124FCCB140007A182 /* AppDelegate.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5206F6BB25052C9100DC78EB /* apendTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = apendTaskViewController.swift; sourceTree = "<group>"; };
 		521198592500A77500D5A5B1 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		5211985A2500A77500D5A5B1 /* CustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
 		523C876E24FCCB140007A182 /* taskApp1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = taskApp1.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,6 +70,7 @@
 				523C877524FCCB140007A182 /* ViewController.swift */,
 				523C878524FCD2F80007A182 /* hearpagetViewController.swift */,
 				521198592500A77500D5A5B1 /* CustomCell.swift */,
+				5206F6BB25052C9100DC78EB /* apendTaskViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -176,6 +179,7 @@
 				523C877624FCCB140007A182 /* ViewController.swift in Sources */,
 				5211985B2500A77500D5A5B1 /* CustomCell.swift in Sources */,
 				523C877224FCCB140007A182 /* AppDelegate.swift in Sources */,
+				5206F6BC25052C9100DC78EB /* apendTaskViewController.swift in Sources */,
 				523C877424FCCB140007A182 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
