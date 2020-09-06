@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="55" id="KGk-i7-Jjw" customClass="CustomCell" customModule="taskApp1" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="404" height="55"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="404" height="55"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9zA-qv-d5S">
+                        <rect key="frame" x="0.0" y="0.0" width="242.5" height="36.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JNI-XX-gHr">
+                        <rect key="frame" x="0.0" y="36.5" width="269.5" height="18.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bc5-Ye-lHv">
+                        <rect key="frame" x="331.5" y="0.0" width="67.5" height="55"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <state key="normal" image="heart" catalog="system"/>
+                        <connections>
+                            <action selector="heartButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="1Oo-nY-aNF"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vjn-NK-eY5">
+                        <rect key="frame" x="266.5" y="0.0" width="67.5" height="55"/>
+                        <state key="normal" image="pencil" catalog="system"/>
+                        <connections>
+                            <action selector="apeendTask:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Xa1-rZ-fCY"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="JNI-XX-gHr" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="2/3" id="1T7-P8-t61"/>
+                    <constraint firstItem="bc5-Ye-lHv" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" id="78O-3y-KuD"/>
+                    <constraint firstAttribute="trailing" secondItem="vjn-NK-eY5" secondAttribute="trailing" constant="70" id="86X-dH-y2a"/>
+                    <constraint firstItem="9zA-qv-d5S" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="98k-j7-hfv"/>
+                    <constraint firstAttribute="bottom" secondItem="vjn-NK-eY5" secondAttribute="bottom" id="9KC-bR-HpF"/>
+                    <constraint firstAttribute="trailing" secondItem="bc5-Ye-lHv" secondAttribute="trailing" constant="5" id="AYm-9I-Zro"/>
+                    <constraint firstAttribute="bottom" secondItem="JNI-XX-gHr" secondAttribute="bottom" id="DGN-YS-cd7"/>
+                    <constraint firstItem="9zA-qv-d5S" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="2/3" id="DcS-Pn-Vx6"/>
+                    <constraint firstItem="bc5-Ye-lHv" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="1/6" id="GlA-rT-1cw"/>
+                    <constraint firstAttribute="bottom" secondItem="bc5-Ye-lHv" secondAttribute="bottom" id="HD7-kE-lO3"/>
+                    <constraint firstItem="JNI-XX-gHr" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="1/3" id="OKF-2G-2Kn"/>
+                    <constraint firstItem="9zA-qv-d5S" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="SdE-PR-u0T"/>
+                    <constraint firstItem="vjn-NK-eY5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="aMt-gu-zsW"/>
+                    <constraint firstItem="vjn-NK-eY5" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" id="cFo-pa-Wmp"/>
+                    <constraint firstItem="vjn-NK-eY5" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="1/6" id="qcc-xR-FGn"/>
+                    <constraint firstItem="9zA-qv-d5S" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="3/5" id="qeI-Ur-V21"/>
+                    <constraint firstItem="JNI-XX-gHr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="tIz-qI-7pw"/>
+                    <constraint firstItem="bc5-Ye-lHv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="wOd-o9-c45"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="celllabel" destination="9zA-qv-d5S" id="iXT-Qh-Mgb"/>
+                <outlet property="heart" destination="bc5-Ye-lHv" id="t8P-ia-8HS"/>
+                <outlet property="label" destination="JNI-XX-gHr" id="asa-Is-ITH"/>
+            </connections>
+            <point key="canvasLocation" x="210.1449275362319" y="170.42410714285714"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="heart" catalog="system" width="128" height="109"/>
+        <image name="pencil" catalog="system" width="128" height="113"/>
+    </resources>
+</document>
