@@ -67,11 +67,9 @@ class apendTaskViewController: UIViewController, UIPickerViewDataSource {
      
      }*/
     
-    
-    
     @IBAction func taskApendButton(_ sender: Any) {
         
-       /* guard let taskText = taskTextField.text,let dateText = dateTextField.text else {
+        guard let taskText = taskTextField.text,let dateText = dateTextField.text else {
             
             return
         }
@@ -83,7 +81,7 @@ class apendTaskViewController: UIViewController, UIPickerViewDataSource {
         UserDefaults.standard.set(saveData, forKey: "memos")
         
         navigationController?.popViewController(animated: true)
-        */
+        
         
         
     }
