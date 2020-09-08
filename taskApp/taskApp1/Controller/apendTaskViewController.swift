@@ -10,19 +10,30 @@ import UIKit
 
 class apendTaskViewController: UIViewController, UIPickerViewDataSource {
     
-    
-    
-    
-
     @IBOutlet weak var taskTextField: UITextField!
     @IBOutlet weak var dateTextField: UITextField!
     
     var datepickerView = UIDatePicker()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-       createPickerView()
+        
+        // ピッカー設定
+        //ドキュメントとなんか違う
+        datepickerView.datePickerMode = UIDatePicker.Mode.date
+        datepickerView.timeZone = NSTimeZone.local
+        datepickerView.locale = Locale.current
+        dateTextField.inputView = datepickerView
+        
+        // 決定バーの生成
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 35))
+        let spacelItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        let doneItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
+        toolbar.setItems([spacelItem, doneItem], animated: true)
+        
+        // インプットビュー設定
+        dateTextField.inputView = datepickerView
+        dateTextField.inputAccessoryView = toolbar
     }
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -32,25 +43,47 @@ class apendTaskViewController: UIViewController, UIPickerViewDataSource {
         return 1
     }
     
-    
-    func createPickerView() {
-        //datepickerView.delegate = self
-        dateTextField.inputView = datepickerView
-        // toolbar
-        let toolbar = UIToolbar()
-        toolbar.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 44)
-        let doneButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(apendTaskViewController.donePicker))
-        toolbar.setItems([doneButtonItem], animated: true)
-        dateTextField.inputAccessoryView = toolbar
-        
-    }
-    
-    @objc func donePicker() {
+    // 決定ボタン押下
+    @objc func done() {
         dateTextField.endEditing(true)
+        
+        // 日付のフォーマット
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ja_JP")
+        formatter.dateFormat = "yyyy-MM-dd"
+        dateTextField.text = "\(formatter.string(from: Date()))"
     }
+    
+    /*@objc func donePicker() {
+     dateTextField.endEditing(true)
+     // フォーマットを生成.
+     let myDateFormatter: DateFormatter = DateFormatter()
+     myDateFormatter.dateFormat = "yyyy年MM月dd日"
+     
+     // 日付をフォーマットに則って取得.
+     let mySelectedDate: NSString = myDateFormatter.string(from:datepickerView.date) as NSString
+     dateTextField.text = mySelectedDate as String
+     
+     
+     }*/
+    
     
     
     @IBAction func taskApendButton(_ sender: Any) {
+        
+       /* guard let taskText = taskTextField.text,let dateText = dateTextField.text else {
+            
+            return
+        }
+        //前の保存してあるものが入れ変わらないように、前のデータを一回保存する。
+        var saveData = UserDefaults.standard.array(forKey: "memos") as? [[String:String]] ?? []
+        let memos = ["task":taskText,"date":dateText]
+        saveData.append(memos)
+        
+        UserDefaults.standard.set(saveData, forKey: "memos")
+        
+        navigationController?.popViewController(animated: true)
+        */
         
         
     }

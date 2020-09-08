@@ -12,7 +12,23 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var memos:[String] = ["あ"]
+    var memos:[[String:String]]{
+        get{
+            var me = [[String:String]]()
+            let defaults = UserDefaults.standard
+            if let lists = defaults.array(forKey: "memos") as? [[String:String]]{
+                me = lists
+            }
+            return me
+        }
+        
+        set{
+            let defaults = UserDefaults.standard
+            defaults.set(newValue, forKey: "memos")
+            
+        }
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +57,10 @@ class ViewController: UIViewController {
         let aptVC = self.storyboard?.instantiateViewController(withIdentifier: "task") as! apendTaskViewController
         self.navigationController?.pushViewController(aptVC, animated: true)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
 
 }
 extension ViewController:UITableViewDelegate,UITableViewDataSource{
@@ -49,11 +69,11 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? CustomCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomCell
         
-        cell?.celllabel.text = memos[indexPath.row]
-        cell?.heart.imageView?.image =  UIImage(systemName:"heart")
-        return cell!
+        cell.celllabel.text = memos[indexPath.row]["task"]
+        cell.heart.imageView?.image =  UIImage(systemName:"heart")
+        return cell
     }
     
 }
