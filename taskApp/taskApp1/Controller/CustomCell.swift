@@ -12,24 +12,18 @@ protocol Catchprptocol{
     func catchString()
 }
 class CustomCell: UITableViewCell {
-    
-    var flg = false
-    
+
     var delegate: UIViewController?
+    @IBOutlet weak var dateLabel: UILabel!
     
-    var string = ""
     
     @IBOutlet weak var celllabel: UILabel!
     
-    @IBOutlet weak var label: UILabel!
     
     @IBOutlet weak var heart: UIButton!
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        //heart.imageView?.image = UIImage(systemName:"heart")
-        
         
     }
     
@@ -60,10 +54,8 @@ class CustomCell: UITableViewCell {
         let whiteImage = UIImage(named: "heart")
         
         let image = UIImage(named: "heart.fill")
-        //let state = UIControl.State.normal
-        let state = UIControl.State.normal
         
-        heart.setImage(image, for: UIControl.State())
+        heart.setImage(image, for: .normal)
         
         //
         

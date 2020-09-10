@@ -116,6 +116,7 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
         
         cell.delegate = self
         cell.celllabel.text = memos[indexPath.row]["task"]
+        cell.dateLabel.text = memos[indexPath.row]["date"]
         cell.heart.imageView?.image =  UIImage(systemName:"heart")
         return cell
     }

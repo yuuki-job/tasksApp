@@ -68,8 +68,8 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="celllabel" destination="9zA-qv-d5S" id="iXT-Qh-Mgb"/>
+                <outlet property="dateLabel" destination="JNI-XX-gHr" id="28I-oZ-oEd"/>
                 <outlet property="heart" destination="bc5-Ye-lHv" id="t8P-ia-8HS"/>
-                <outlet property="label" destination="JNI-XX-gHr" id="asa-Is-ITH"/>
             </connections>
             <point key="canvasLocation" x="210.1449275362319" y="170.42410714285714"/>
         </tableViewCell>
