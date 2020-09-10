@@ -9,16 +9,31 @@
 import UIKit
 
 class hearpagetViewController: UIViewController{
+   
+    
+   
     
     @IBOutlet weak var tableView: UITableView!
-    var memos:[String] = ["あ"]
+    
+   
+    
+    var memos:[String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
         
+        
+        //カスタム？セルのやつ？
+        tableView.register(UINib(nibName: "CustomCell", bundle: nil), forCellReuseIdentifier: "Cell")
+        
+       
+        
+        
     }
+    
+    
 }
 extension hearpagetViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

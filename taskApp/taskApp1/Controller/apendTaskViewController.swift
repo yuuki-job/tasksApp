@@ -49,24 +49,12 @@ class apendTaskViewController: UIViewController, UIPickerViewDataSource {
         
         // 日付のフォーマット
         let formatter = DateFormatter()
+        //日本語に変えている
         formatter.locale = Locale(identifier: "ja_JP")
         formatter.dateFormat = "yyyy-MM-dd"
-        dateTextField.text = "\(formatter.string(from: Date()))"
+        //dateは日付ピッカーによって表示される日付。
+        dateTextField.text = "\(formatter.string(from: datepickerView.date))"
     }
-    
-    /*@objc func donePicker() {
-     dateTextField.endEditing(true)
-     // フォーマットを生成.
-     let myDateFormatter: DateFormatter = DateFormatter()
-     myDateFormatter.dateFormat = "yyyy年MM月dd日"
-     
-     // 日付をフォーマットに則って取得.
-     let mySelectedDate: NSString = myDateFormatter.string(from:datepickerView.date) as NSString
-     dateTextField.text = mySelectedDate as String
-     
-     
-     }*/
-    
     @IBAction func taskApendButton(_ sender: Any) {
         
         guard let taskText = taskTextField.text,let dateText = dateTextField.text else {
