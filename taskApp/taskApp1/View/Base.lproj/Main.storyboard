@@ -51,7 +51,7 @@
         <!--Apend Task View Controller-->
         <scene sceneID="BM0-Is-eyG">
             <objects>
-                <viewController storyboardIdentifier="task" id="Pz0-fb-G6y" customClass="apendTaskViewController" customModule="taskApp1" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="task" id="Pz0-fb-G6y" customClass="ApendTaskViewController" customModule="taskApp1" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oZ2-B9-Ffc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -113,7 +113,7 @@
         <!--お気に入り-->
         <scene sceneID="e4x-Dd-Lts">
             <objects>
-                <viewController storyboardIdentifier="next" id="N7i-0i-XT4" customClass="hearpagetViewController" customModule="taskApp1" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="next" id="N7i-0i-XT4" customClass="HearpagetViewController" customModule="taskApp1" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iMx-uD-Yb0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

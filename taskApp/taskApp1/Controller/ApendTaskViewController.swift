@@ -8,7 +8,7 @@
 
 import UIKit
 
-class apendTaskViewController: UIViewController, UIPickerViewDataSource {
+class ApendTaskViewController: UIViewController, UIPickerViewDataSource {
     
     @IBOutlet weak var taskTextField: UITextField!
     @IBOutlet weak var dateTextField: UITextField!
@@ -62,8 +62,8 @@ class apendTaskViewController: UIViewController, UIPickerViewDataSource {
             return
         }
         //前の保存してあるものが入れ変わらないように、前のデータを一回保存する。
-        var saveData = UserDefaults.standard.array(forKey: "memos") as? [[String:String]] ?? []
-        let memos = ["task":taskText,"date":dateText]
+        var saveData = UserDefaults.standard.array(forKey: "memos") as? [[String:Any]] ?? []
+        let memos = ["task":taskText,"date":dateText,"favorite":false] as [String : Any]
         saveData.append(memos)
         
         UserDefaults.standard.set(saveData, forKey: "memos")

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class hearpagetViewController: UIViewController{
+class HearpagetViewController: UIViewController{
    
     
    
@@ -17,7 +17,7 @@ class hearpagetViewController: UIViewController{
     
    
     
-    var memos:[String] = []
+    var rezmemo:[[String:Any]] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,17 +32,21 @@ class hearpagetViewController: UIViewController{
         
         
     }
+    override func viewWillAppear(_ animated: Bool) {
+        
+        tableView.reloadData()
+    }
     
     
 }
-extension hearpagetViewController:UITableViewDelegate,UITableViewDataSource{
+extension HearpagetViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return memos.count
+        return rezmemo.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = memos[indexPath.row]
+        cell.textLabel?.text = rezmemo[indexPath.row] as? String
         return cell
         
     }

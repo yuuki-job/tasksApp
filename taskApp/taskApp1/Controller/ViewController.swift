@@ -13,11 +13,11 @@ class ViewController: UIViewController, Catchprptocol {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var memos:[[String:String]]{
+    var memos:[[String:Any]]{
         get{
-            var me = [[String:String]]()
+            var me = [[String:Any]]()
             let defaults = UserDefaults.standard
-            if let lists = defaults.array(forKey: "memos") as? [[String:String]]{
+            if let lists = defaults.array(forKey: "memos") as? [[String:Any]]{
                 me = lists
             }
             return me
@@ -61,7 +61,7 @@ class ViewController: UIViewController, Catchprptocol {
     }
     //背景が青で、文字が＋の白色の丸いをボタンタップした時の処理
     @objc func didTapButton() {
-        let aptVC = self.storyboard?.instantiateViewController(withIdentifier: "task") as! apendTaskViewController
+        let aptVC = self.storyboard?.instantiateViewController(withIdentifier: "task") as! ApendTaskViewController
         self.navigationController?.pushViewController(aptVC, animated: true)
     }
     
@@ -115,9 +115,10 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomCell
         
         cell.delegate = self
-        cell.celllabel.text = memos[indexPath.row]["task"]
-        cell.dateLabel.text = memos[indexPath.row]["date"]
-        cell.heart.imageView?.image =  UIImage(systemName:"heart")
+        cell.celllabel.text = memos[indexPath.row]["task"] as? String
+        cell.dateLabel.text = memos[indexPath.row]["date"] as? String
+        
+       // cell.flg = memos[indexPath.row]["favorite"] as? Bool
         return cell
     }
     

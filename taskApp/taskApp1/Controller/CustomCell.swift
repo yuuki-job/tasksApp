@@ -14,16 +14,15 @@ protocol Catchprptocol{
 class CustomCell: UITableViewCell {
 
     var delegate: UIViewController?
+    var flg = false
+    
+    
     @IBOutlet weak var dateLabel: UILabel!
     
-    
+    @IBOutlet weak var heartButtondisp: UIButton!
     @IBOutlet weak var celllabel: UILabel!
     
-    
-    @IBOutlet weak var heart: UIButton!
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    override func setSelected(_ selected: Bool, animated: Bool) {        super.setSelected(selected, animated: animated)
         
     }
     
@@ -51,24 +50,41 @@ class CustomCell: UITableViewCell {
     }
     
     @IBAction func heartButton(_ sender: Any) {
+        
         let whiteImage = UIImage(named: "heart")
         
         let image = UIImage(named: "heart.fill")
         
-        heart.setImage(image, for: .normal)
         
-        //
+        switch flg {
+        case false:
+            heartButtondisp.setImage(image, for: .normal)
+            flg = true
+            let heartVC = delegate.self?.storyboard?.instantiateViewController(withIdentifier: "next") as! HearpagetViewController
+            
+            heartVC.rezmemo = 
+                print(true)
+        case true:
+            heartButtondisp.setImage(whiteImage, for: .normal)
+            flg = false
+            print(false)
+        default:
+            print("a")
+        }
         
-        /*if flg {
-         heart.setImage(whiteImage, for: UIControl.State())
-         flg = false
-         print("false")
-         }
-         else{
-         heart.setImage(image, for: UIControl.State())
+        
+        
+        
+        /*if flg == false{
+            heartButtondisp.setImage(image, for: .normal)
          flg = true
          print("true")
-         }*/
+         }
+         else{
+            heartButtondisp.setImage(whiteImage, for: .normal)
+         flg = false
+         print("false")
+        }*/
     }
 }
 
