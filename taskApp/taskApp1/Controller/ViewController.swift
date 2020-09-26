@@ -8,24 +8,20 @@
 
 import UIKit
 
-class ViewController: UIViewController, Catchprptocol {
+class ViewController: UIViewController{
     var editBarButtonItem = UIBarButtonItem()
     
     @IBOutlet weak var tableView: UITableView!
     
     var memos:[[String:Any]]{
         get{
-            var me = [[String:Any]]()
-            let defaults = UserDefaults.standard
-            if let lists = defaults.array(forKey: "memos") as? [[String:Any]]{
-                me = lists
-            }
-            return me
+        
+            return  UserDefaults.standard.array(forKey: "tasks") as? [[String:Any]] ?? []
         }
         
         set{
             let defaults = UserDefaults.standard
-            defaults.set(newValue, forKey: "memos")
+            defaults.set(newValue, forKey: "tasks")
             
         }
         
@@ -34,30 +30,30 @@ class ViewController: UIViewController, Catchprptocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        tableView.rowHeight = UITableView.automaticDimension
-        
-        tableView.estimatedRowHeight = 55
-        //カスタム？セルのやつ？
-        tableView.register(UINib(nibName: "CustomCell", bundle: nil), forCellReuseIdentifier: "Cell")
-        
-        //ボタンのコード
-        let button:UIButton = UIButton(frame: CGRect(x: 300, y: 650, width: 40, height: 40))
-        button.backgroundColor = .blue
-        button.setTitle("＋", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 20
-        button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
-        
-        self.view.addSubview(button)
+       setupTableView()
+       createButton()
         
         //ナビゲーションのコード
         editBarButtonItem = UIBarButtonItem(title: "編集", style: .done, target: self, action: #selector(editBarButtonTapped(_:)))
         // ③バーボタンアイテムの追加
         navigationItem.leftBarButtonItems = [editBarButtonItem]
         
+    }
+    private func setupTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        //カスタム？セルのやつ？
+        tableView.register(UINib(nibName: "TaskTableViewCell", bundle: nil), forCellReuseIdentifier: "Cell")
+    }
+    private func createButton() {
+        let button:UIButton = UIButton(frame: CGRect(x: 300, y: 650, width: 40, height: 40))
+        button.backgroundColor = .blue
+        button.setTitle("＋", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 20
+        button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+        self.view.addSubview(button)
     }
     //背景が青で、文字が＋の白色の丸いをボタンタップした時の処理
     @objc func didTapButton() {
@@ -81,30 +77,7 @@ class ViewController: UIViewController, Catchprptocol {
         
         print(editing)
     }
-    
-    func catchString() {
-        let alert: UIAlertController = UIAlertController(title: "タイトル", message: "メッセージ", preferredStyle:  UIAlertController.Style.alert)
-        
-        let defaultButton: UIAlertAction = UIAlertAction(title: "ボタン", style: UIAlertAction.Style.default, handler: {(action: UIAlertAction!) -> Void in
-            // ボタンが押された時のコード
-        })
-        
-        let cancelButton: UIAlertAction = UIAlertAction(title: "キャンセル", style: UIAlertAction.Style.cancel, handler: {(action: UIAlertAction!) -> Void in
-            // ボタンが押された時のコード
-        })
-        
-        alert.addTextField(configurationHandler: {(text:UITextField!) -> Void in
-            text.placeholder = "テキストボックス"
-        })
-        
-        alert.addAction(defaultButton)
-        alert.addAction(cancelButton)
-        
-        self.present(alert, animated: true, completion: nil)
-    }
-    
 }
-
 //tableViewのところ
 extension ViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -112,11 +85,10 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomCell
+       
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TaskTableViewCell
+        cell.setup(task: memos[indexPath.row], index: indexPath.row)
         
-        cell.delegate = self
-        cell.celllabel.text = memos[indexPath.row]["task"] as? String
-        cell.dateLabel.text = memos[indexPath.row]["date"] as? String
         
        // cell.flg = memos[indexPath.row]["favorite"] as? Bool
         return cell

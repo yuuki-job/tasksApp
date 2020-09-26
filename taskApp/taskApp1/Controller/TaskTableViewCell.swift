@@ -8,14 +8,11 @@
 
 import UIKit
 
-protocol Catchprptocol{
-    func catchString()
-}
+
 class TaskTableViewCell: UITableViewCell {
 
-    var delegate: UIViewController?
-    var flg = false
-    
+    var task: [String: Any]!
+    var index: Int!
     
     @IBOutlet weak var dateLabel: UILabel!
     
@@ -26,6 +23,23 @@ class TaskTableViewCell: UITableViewCell {
         
     }
     
+    func setup(task: [String: Any], index: Int) {
+    
+    guard let isFavorite = task["isFavorite"] as? Bool else {
+        return
+    }
+
+    if isFavorite {
+        heartButtondisp.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+    } else {
+        heartButtondisp.setImage(UIImage(systemName: "heart"), for: .normal)
+    }
+    celllabel.text = task["task"] as? String
+    dateLabel.text = task["date"] as? String
+    //
+    self.task = task
+    self.index = index
+    }
     @IBAction func apeendTask(_ sender: Any) {
         
         let alert: UIAlertController = UIAlertController(title: "タイトル", message: "メッセージ", preferredStyle:  UIAlertController.Style.alert)
@@ -46,33 +60,32 @@ class TaskTableViewCell: UITableViewCell {
         alert.addAction(defaultButton)
         alert.addAction(cancelButton)
         
-        delegate!.present(alert, animated: true, completion: nil)
+       // delegate!.present(alert, animated: true, completion: nil)
     }
     
     @IBAction func heartButton(_ sender: Any) {
         
-        let whiteImage = UIImage(named: "heart")
-        
-        let image = UIImage(named: "heart.fill")
-        
-        
-        switch flg {
-        case false:
-            heartButtondisp.setImage(image, for: .normal)
-            flg = true
-            let heartVC = delegate.self?.storyboard?.instantiateViewController(withIdentifier: "next") as! HearpagetViewController
-            
-            heartVC.rezmemo = 
-                print(true)
-        case true:
-            heartButtondisp.setImage(whiteImage, for: .normal)
-            flg = false
-            print(false)
-        default:
-            print("a")
+        guard let isFavorite = task["isFavorite"] as? Bool else {
+            return
         }
         
+        if isFavorite {
+            heartButtondisp.setImage(UIImage(systemName: "heart"), for: .normal)
+        } else {
+            heartButtondisp.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        }
         
+        var saveData = UserDefaults.standard.array(forKey: "tasks") as? [[String: Any]] ?? []
+        saveData[index]["isFavorite"] = !isFavorite
+        
+        UserDefaults.standard.set(saveData, forKey: "tasks")
+        //なんで書いてあるのかわからない。
+        task["isFavorite"] = !isFavorite
+        
+        print(saveData)
+    }
+    
+    
         
         
         /*if flg == false{
@@ -86,5 +99,5 @@ class TaskTableViewCell: UITableViewCell {
          print("false")
         }*/
     }
-}
+
 

@@ -57,21 +57,23 @@ class ApendTaskViewController: UIViewController, UIPickerViewDataSource {
     }
     @IBAction func taskApendButton(_ sender: Any) {
         
-        guard let taskText = taskTextField.text,let dateText = dateTextField.text else {
-            
-            return
-        }
-        //前の保存してあるものが入れ変わらないように、前のデータを一回保存する。
-        var saveData = UserDefaults.standard.array(forKey: "memos") as? [[String:Any]] ?? []
-        let memos = ["task":taskText,"date":dateText,"favorite":false] as [String : Any]
-        saveData.append(memos)
-        
-        UserDefaults.standard.set(saveData, forKey: "memos")
-        
-        navigationController?.popViewController(animated: true)
-        
+       guard let taskText = taskTextField.text,let dateText = dateTextField.text else {
+                 
+                 return
+             }
+             //前の保存してあるものが入れ変わらないように、前のデータを一回保存する。
+             var saveData = UserDefaults.standard.array(forKey: "tasks") as? [[String:Any]] ?? []
+             //なぜasだけ？
+             let memos = ["task":taskText,"date":dateText,"isFavorite":false] as [String : Any]
+             saveData.append(memos)
+             
+             UserDefaults.standard.set(saveData, forKey: "tasks")
+             
+             navigationController?.popViewController(animated: true)
+             
+         }
         
         
     }
     
-}
+
