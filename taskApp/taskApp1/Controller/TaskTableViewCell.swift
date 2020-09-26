@@ -11,7 +11,7 @@ import UIKit
 protocol Catchprptocol{
     func catchString()
 }
-class CustomCell: UITableViewCell {
+class TaskTableViewCell: UITableViewCell {
 
     var delegate: UIViewController?
     var flg = false
