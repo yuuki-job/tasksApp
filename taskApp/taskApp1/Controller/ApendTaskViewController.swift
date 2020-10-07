@@ -23,7 +23,6 @@ class ApendTaskViewController: UIViewController, UIPickerViewDataSource {
         datepickerView.datePickerMode = UIDatePicker.Mode.date
         datepickerView.timeZone = NSTimeZone.local
         datepickerView.locale = Locale.current
-        dateTextField.inputView = datepickerView
         
         // 決定バーの生成
         let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 35))
@@ -52,28 +51,30 @@ class ApendTaskViewController: UIViewController, UIPickerViewDataSource {
         //日本語に変えている
         formatter.locale = Locale(identifier: "ja_JP")
         formatter.dateFormat = "yyyy-MM-dd"
-        //dateは日付ピッカーによって表示される日付。
-        dateTextField.text = "\(formatter.string(from: datepickerView.date))"
+        //dateは日付ピッカーによって表示される日付。また、ピッカーが作成された現在の日付
+        dateTextField.text = (formatter.string(from: datepickerView.date))
     }
     @IBAction func taskApendButton(_ sender: Any) {
         
-       guard let taskText = taskTextField.text,let dateText = dateTextField.text else {
-                 
-                 return
-             }
-             //前の保存してあるものが入れ変わらないように、前のデータを一回保存する。
-             var saveData = UserDefaults.standard.array(forKey: "tasks") as? [[String:Any]] ?? []
-             //なぜasだけ？
-             let memos = ["task":taskText,"date":dateText,"isFavorite":false] as [String : Any]
-             saveData.append(memos)
-             
-             UserDefaults.standard.set(saveData, forKey: "tasks")
-             
-             navigationController?.popViewController(animated: true)
-             
-         }
+        guard let taskText = taskTextField.text,let dateText = dateTextField.text else {
+            
+            return
+        }
+        //前の保存してあるものが入れ変わらないように、前のデータを一回保存する。
+        //データは一度しか入らないから。
+        let savetask:Task = Task(title: taskText, date: dateText, isFavorite: false)
         
+        Task.saveTasks.append(savetask)
+        
+        saveData(task: Task.saveTasks)
+        
+        navigationController?.popViewController(animated: true)
         
     }
-    
+    func saveData(task:[Task]){
+        let data = try? JSONEncoder().encode(task)
+        UserDefaults.standard.set(data, forKey: "task")
+    }
+}
+
 

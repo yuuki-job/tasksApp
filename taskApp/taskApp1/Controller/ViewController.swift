@@ -13,25 +13,12 @@ class ViewController: UIViewController{
     
     @IBOutlet weak var tableView: UITableView!
     
-    var memos:[[String:Any]]{
-        get{
-        
-            return  UserDefaults.standard.array(forKey: "tasks") as? [[String:Any]] ?? []
-        }
-        
-        set{
-            let defaults = UserDefaults.standard
-            defaults.set(newValue, forKey: "tasks")
-            
-        }
-        
-    }
-    
+    var tasks:[Task] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       setupTableView()
-       createButton()
+        setupTableView()
+        createButton()
         
         //ナビゲーションのコード
         editBarButtonItem = UIBarButtonItem(title: "編集", style: .done, target: self, action: #selector(editBarButtonTapped(_:)))
@@ -39,6 +26,27 @@ class ViewController: UIViewController{
         navigationItem.leftBarButtonItems = [editBarButtonItem]
         
     }
+    override func viewWillAppear(_ animated: Bool) {
+        //tasks = Task.saveTasks
+        guard let datas = UserDefaults.standard.data(forKey: "task")else{
+            return
+        }
+        //tasks = getData(data: datas)
+        Task.saveTasks = getData(data: datas)
+        tasks = Task.saveTasks
+        print(tasks)
+        
+        tableView.reloadData()
+    }
+    
+    func getData(data:Data) -> [Task]{
+        
+        let taskData = try? JSONDecoder().decode([Task].self, from: data)
+        
+        return taskData ?? []
+    }
+    
+    
     private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
@@ -47,6 +55,7 @@ class ViewController: UIViewController{
         tableView.register(UINib(nibName: "TaskTableViewCell", bundle: nil), forCellReuseIdentifier: "Cell")
     }
     private func createButton() {
+        
         let button:UIButton = UIButton(frame: CGRect(x: 300, y: 650, width: 40, height: 40))
         button.backgroundColor = .blue
         button.setTitle("＋", for: .normal)
@@ -67,9 +76,7 @@ class ViewController: UIViewController{
         print("【編集】ボタンが押された!")
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        tableView.reloadData()
-    }
+    
     
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
@@ -81,23 +88,23 @@ class ViewController: UIViewController{
 //tableViewのところ
 extension ViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return memos.count
+        return tasks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TaskTableViewCell
-        cell.setup(task: memos[indexPath.row], index: indexPath.row)
+        cell.setup(task: tasks, index: indexPath.row)
         
         
-       // cell.flg = memos[indexPath.row]["favorite"] as? Bool
+        // cell.flg = memos[indexPath.row]["favorite"] as? Bool
         return cell
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         // 先にデータを削除しないと、エラーが発生します。
-        self.memos.remove(at: indexPath.row)
+        self.tasks.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .automatic)
     }
 }

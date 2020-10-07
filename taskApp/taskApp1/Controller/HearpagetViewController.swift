@@ -12,49 +12,39 @@ class HearpagetViewController: UIViewController{
     
     @IBOutlet weak var tableView: UITableView!
     
-    
-    
-    var favoritetask:[[String:Any]]{
+    var favoritetask:[Task]{
+        
         get{
-            var newData:[[String:Any]] = []
-            
-            var oldData = UserDefaults.standard.array(forKey: "tasks") as? [[String:Any]] ?? []
-            
-            for arry in oldData {
-                if arry["isFavorite"]! as! Bool == true{
-                    newData.append(arry)
-                    print(newData)
-                }
+            var newData:[Task] = []
+            for task in Task.saveTasks {
                 
+                if task.isFavorite == true{
+                    newData.append(task)
+                    
+                    
+                }
             }
             return newData
         }
-        
-        
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
         
-        
         //カスタム？セルのやつ？
         tableView.register(UINib(nibName: "TaskTableViewCell", bundle: nil), forCellReuseIdentifier: "Cell")
         
-        
-        
-        
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         
         tableView.reloadData()
+        
     }
     
-    
-    
-    
 }
+
 extension HearpagetViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return favoritetask.count
@@ -62,7 +52,7 @@ extension HearpagetViewController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TaskTableViewCell
-        cell.setup(task: favoritetask[indexPath.row], index: indexPath.row)
+        cell.setup(task: favoritetask, index: indexPath.row)
         return cell
         
     }

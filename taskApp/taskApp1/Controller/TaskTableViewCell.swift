@@ -10,8 +10,9 @@ import UIKit
 
 
 class TaskTableViewCell: UITableViewCell {
-
-    var task: [String: Any]!
+    
+    var task:[Task]!
+    
     var index: Int!
     
     @IBOutlet weak var dateLabel: UILabel!
@@ -23,22 +24,22 @@ class TaskTableViewCell: UITableViewCell {
         
     }
     
-    func setup(task: [String: Any], index: Int) {
-    
-    guard let isFavorite = task["isFavorite"] as? Bool else {
-        return
-    }
-
-    if isFavorite {
-        heartButtondisp.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-    } else {
-        heartButtondisp.setImage(UIImage(systemName: "heart"), for: .normal)
-    }
-    celllabel.text = task["task"] as? String
-    dateLabel.text = task["date"] as? String
-    //
-    self.task = task
-    self.index = index
+    func setup(task: [Task], index: Int) {
+        
+        guard let isFavorite = task[index].isFavorite as? Bool else {
+            return
+        }
+        
+        if isFavorite {
+            heartButtondisp.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        } else {
+            heartButtondisp.setImage(UIImage(systemName: "heart"), for: .normal)
+        }
+        celllabel.text = task[index].title
+        dateLabel.text = task[index].date
+        //
+        self.task = task
+        self.index = index
     }
     @IBAction func apeendTask(_ sender: Any) {
         
@@ -60,12 +61,12 @@ class TaskTableViewCell: UITableViewCell {
         alert.addAction(defaultButton)
         alert.addAction(cancelButton)
         
-       // delegate!.present(alert, animated: true, completion: nil)
+        // delegate!.present(alert, animated: true, completion: nil)
     }
     
     @IBAction func heartButton(_ sender: Any) {
         
-        guard let isFavorite = task["isFavorite"] as? Bool else {
+        guard let isFavorite = task[index].isFavorite as? Bool else {
             return
         }
         
@@ -75,29 +76,26 @@ class TaskTableViewCell: UITableViewCell {
             heartButtondisp.setImage(UIImage(systemName: "heart.fill"), for: .normal)
         }
         
-        var saveData = UserDefaults.standard.array(forKey: "tasks") as? [[String: Any]] ?? []
-        saveData[index]["isFavorite"] = !isFavorite
+        guard let datas = UserDefaults.standard.data(forKey: "task")else{
+            return
+        }
+        let taskData = try? JSONDecoder().decode([Task].self, from: datas)
+        taskData![index].isFavorite = !isFavorite
+        print(taskData)
+        saveData(task: taskData ?? [])
+        //var saveData = UserDefaults.standard.array(forKey: "tasks") as? [[String: Any]] ?? []
+        //saveData[index]["isFavorite"] = !isFavorite
         
-        UserDefaults.standard.set(saveData, forKey: "tasks")
+        //UserDefaults.standard.set(saveData, forKey: "tasks")
         //なんで書いてあるのかわからない。
-        task["isFavorite"] = !isFavorite
+        task[index].isFavorite = !isFavorite
         
-        print(saveData)
+        
     }
-    
-    
-        
-        
-        /*if flg == false{
-            heartButtondisp.setImage(image, for: .normal)
-         flg = true
-         print("true")
-         }
-         else{
-            heartButtondisp.setImage(whiteImage, for: .normal)
-         flg = false
-         print("false")
-        }*/
+    func saveData(task:[Task]){
+        let data = try? JSONEncoder().encode(task)
+        UserDefaults.standard.set(data, forKey: "task")
     }
+}
 
 
