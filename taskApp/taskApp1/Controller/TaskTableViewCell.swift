@@ -7,16 +7,18 @@
 //
 
 import UIKit
-
-
-class TaskTableViewCell: UITableViewCell {
+protocol TaskTableViewCellDelegate {
+    func alertDisplay()
+}
+class TaskTableViewCell: UITableViewCell, UITextFieldDelegate {
     
     var task:[Task]!
     
     var index: Int!
     
-    @IBOutlet weak var dateLabel: UILabel!
+    var delegate:TaskTableViewCellDelegate?
     
+    @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var heartButtondisp: UIButton!
     @IBOutlet weak var celllabel: UILabel!
     
@@ -43,25 +45,9 @@ class TaskTableViewCell: UITableViewCell {
     }
     @IBAction func apeendTask(_ sender: Any) {
         
-        let alert: UIAlertController = UIAlertController(title: "タイトル", message: "メッセージ", preferredStyle:  UIAlertController.Style.alert)
+        delegate?.alertDisplay()
         
-        let defaultButton: UIAlertAction = UIAlertAction(title: "ボタン", style: UIAlertAction.Style.default, handler: {(action: UIAlertAction!) -> Void in
-            // ボタンが押された時のコード
-        })
         
-        let cancelButton: UIAlertAction = UIAlertAction(title: "キャンセル", style: UIAlertAction.Style.cancel, handler: {(action: UIAlertAction!) -> Void in
-            // ボタンが押された時のコード
-            
-        })
-        
-        alert.addTextField(configurationHandler: {(text:UITextField!) -> Void in
-            text.placeholder = "テキストボックス"
-        })
-        
-        alert.addAction(defaultButton)
-        alert.addAction(cancelButton)
-        
-        // delegate!.present(alert, animated: true, completion: nil)
     }
     
     @IBAction func heartButton(_ sender: Any) {
@@ -76,13 +62,11 @@ class TaskTableViewCell: UITableViewCell {
             heartButtondisp.setImage(UIImage(systemName: "heart.fill"), for: .normal)
         }
         
-        guard let datas = UserDefaults.standard.data(forKey: "task")else{
-            return
-        }
-        let taskData = try? JSONDecoder().decode([Task].self, from: datas)
-        taskData![index].isFavorite = !isFavorite
-        print(taskData)
-        saveData(task: taskData ?? [])
+        let taskData = TaskManager.getData()
+        taskData[index].isFavorite = !isFavorite
+        
+        TaskManager.saveData(task: taskData )
+        
         //var saveData = UserDefaults.standard.array(forKey: "tasks") as? [[String: Any]] ?? []
         //saveData[index]["isFavorite"] = !isFavorite
         
@@ -90,12 +74,60 @@ class TaskTableViewCell: UITableViewCell {
         //なんで書いてあるのかわからない。
         task[index].isFavorite = !isFavorite
         
-        
     }
-    func saveData(task:[Task]){
-        let data = try? JSONEncoder().encode(task)
-        UserDefaults.standard.set(data, forKey: "task")
-    }
+    
+    /*let alert = UIAlertController(title: "タイトル", message: "メッセージ", preferredStyle:  .alert)
+     //タイトル変える時
+     alert.addTextField { (celllabel) in
+     celllabel.delegate = self
+     celllabel.placeholder = "タイトル変更"
+     }
+     //日付変える時
+     alert.addTextField { (dateLabel) in
+     dateLabel.delegate = self
+     dateLabel.placeholder = "日付変更"
+     }
+     let titleButton = UIAlertAction(title: "タイトル確定", style: UIAlertAction.Style.default, handler: {(action: UIAlertAction!) -> Void in
+     // ボタンが押された時のコード
+     let getD = TaskManager.getData()
+     
+     if let textField = alert.textFields?.first{
+     self.celllabel.text = textField.text
+     }
+     getD[self.index].title = self.celllabel.text ?? ""
+     
+     //getD[self.index]
+     TaskManager.saveData(task: getD)
+     
+     })
+     let dateButton = UIAlertAction(title: "日付確定", style: UIAlertAction.Style.default, handler: {(action: UIAlertAction!) -> Void in
+     
+     // ボタンが押された時のコード
+     let getD = TaskManager.getData()
+     
+     if let textField = alert.textFields?.first{
+     self.dateLabel.text = textField.text
+     }
+     getD[self.index].date = self.dateLabel.text ?? ""
+     
+     //getD[self.index]
+     TaskManager.saveData(task: getD)
+     
+     })
+     
+     let cancelButton = UIAlertAction(title: "キャンセル", style: UIAlertAction.Style.cancel, handler: {(action: UIAlertAction!) -> Void in
+     // ボタンが押された時のコード
+     
+     })
+     
+     
+     
+     alert.addAction(titleButton)
+     alert.addAction(dateButton)
+     alert.addAction(cancelButton)
+     
+     delegate!.present(alert, animated: true, completion: nil)
+     */
 }
 
 

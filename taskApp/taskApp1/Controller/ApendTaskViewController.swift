@@ -65,16 +65,12 @@ class ApendTaskViewController: UIViewController, UIPickerViewDataSource {
         let savetask:Task = Task(title: taskText, date: dateText, isFavorite: false)
         
         Task.saveTasks.append(savetask)
-        
-        saveData(task: Task.saveTasks)
-        
+        TaskManager.saveData(task: Task.saveTasks)
+       
         navigationController?.popViewController(animated: true)
         
     }
-    func saveData(task:[Task]){
-        let data = try? JSONEncoder().encode(task)
-        UserDefaults.standard.set(data, forKey: "task")
-    }
+   
 }
 
 

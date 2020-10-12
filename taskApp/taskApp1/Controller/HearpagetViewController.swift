@@ -10,13 +10,15 @@ import UIKit
 
 class HearpagetViewController: UIViewController{
     
+
     @IBOutlet weak var tableView: UITableView!
-    
     var favoritetask:[Task]{
         
         get{
             var newData:[Task] = []
-            for task in Task.saveTasks {
+            var getD = TaskManager.getData()
+            
+            for task in getD {
                 
                 if task.isFavorite == true{
                     newData.append(task)

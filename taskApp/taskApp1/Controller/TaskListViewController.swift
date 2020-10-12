@@ -8,13 +8,18 @@
 
 import UIKit
 
-class TaskListViewController: UIViewController{
-    
-    var editBarButtonItem = UIBarButtonItem()
-    var aaa = true
-    @IBOutlet weak var tableView: UITableView!
+class TaskListViewController: UIViewController,TaskTableViewCellDelegate{
     
     var tasks:[Task] = []
+    
+    var editBarButtonItem = UIBarButtonItem()
+    
+    var  editSystem = true
+    
+    var delegate:TaskTableViewCellDelegate?
+    
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -54,23 +59,28 @@ class TaskListViewController: UIViewController{
     //編集ボタン押した時
     @IBAction func deleteButton(_ sender: Any) {
         
-        if aaa == true{
+        if editSystem == true{
             tableView.setEditing(true, animated: true)
-            aaa = false
+            editSystem = false
         } else {
             tableView.setEditing(false, animated: true)
-            aaa = true
+            editSystem = true
         }
     }
     /*override func setEditing(_ editing: Bool, animated: Bool) {
      super.setEditing(editing, animated: animated)
      tableView.isEditing = editing
-     
      print(editing)
      }*/
+    //デリゲート
+    func alertDisplay() {
+        alart()
+    }
 }
 //tableViewのところ
 extension TaskListViewController:UITableViewDelegate,UITableViewDataSource{
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tasks.count
     }
@@ -82,7 +92,6 @@ extension TaskListViewController:UITableViewDelegate,UITableViewDataSource{
         
         cell.delegate = self
         // cell.flg = memos[indexPath.row]["favorite"] as? Bool
-        
         
         return cell
     }
@@ -99,6 +108,65 @@ extension TaskListViewController:UITableViewDelegate,UITableViewDataSource{
             TaskManager.saveData(task: tasks)
             tableView.reloadData()
         }
+    }
+    //並び替え
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let task = tasks[sourceIndexPath.row]
+        tasks.remove(at: sourceIndexPath.row)
+        tasks.insert(task, at: destinationIndexPath.row)
+    }
+    func alart(){
+        let alert = UIAlertController(title: "タイトル", message: "メッセージ", preferredStyle:  .alert)
+        //タイトル変える時
+        alert.addTextField { (celllabel) in
+            //celllabel.delegate = self
+            celllabel.placeholder = "タイトル変更"
+        }
+        //日付変える時
+        alert.addTextField { (dateLabel) in
+            //dateLabel.delegate = self
+            dateLabel.placeholder = "日付変更"
+        }
+        let titleButton = UIAlertAction(title: "タイトル確定", style: UIAlertAction.Style.default, handler: {(action: UIAlertAction!) -> Void in
+            // ボタンが押された時のコード
+            let getD = TaskManager.getData()
+            
+            if let textField = alert.textFields?.first{
+                //self.celllabel.text = textField.text
+            }
+            //getD[self.index].title = self.celllabel.text ?? ""
+            
+            //getD[self.index]
+            TaskManager.saveData(task: getD)
+            
+        })
+        let dateButton = UIAlertAction(title: "日付確定", style: UIAlertAction.Style.default, handler: {(action: UIAlertAction!) -> Void in
+            
+            // ボタンが押された時のコード
+            let getD = TaskManager.getData()
+            
+            if let textField = alert.textFields?.first{
+                //self.dateLabel.text = textField.text
+            }
+            //getD[self.index].date = self.dateLabel.text ?? ""
+            
+            //getD[self.index]
+            TaskManager.saveData(task: getD)
+            
+        })
+        
+        let cancelButton = UIAlertAction(title: "キャンセル", style: UIAlertAction.Style.cancel, handler: {(action: UIAlertAction!) -> Void in
+            // ボタンが押された時のコード
+            
+        })
+        
+        
+        
+        alert.addAction(titleButton)
+        alert.addAction(dateButton)
+        alert.addAction(cancelButton)
+        
+        present(alert, animated: true, completion: nil)
     }
     
 }
