@@ -43,11 +43,17 @@ class TaskTableViewCell: UITableViewCell, UITextFieldDelegate {
         self.task = task
         self.index = index
     }
-    @IBAction func apeendTask(_ sender: Any) {
+    @IBAction func editTask(_ sender: Any) {
         
-        delegate?.alertDisplay()
-        
-        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let tlVC = storyboard.instantiateViewController(withIdentifier: "TaskList")
+        if let tLVC = tlVC as? TaskListViewController {
+            tLVC.receiveTitle = task[index].title
+            tLVC.receiveIndex = String(index)
+            print(tLVC.receiveTitle)
+            delegate?.alertDisplay()
+            
+        }
     }
     
     @IBAction func heartButton(_ sender: Any) {

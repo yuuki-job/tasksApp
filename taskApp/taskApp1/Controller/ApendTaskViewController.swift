@@ -62,10 +62,10 @@ class ApendTaskViewController: UIViewController, UIPickerViewDataSource {
         }
         //前の保存してあるものが入れ変わらないように、前のデータを一回保存する。
         //データは一度しか入らないから。
-        let savetask:Task = Task(title: taskText, date: dateText, isFavorite: false)
-        
-        Task.saveTasks.append(savetask)
-        TaskManager.saveData(task: Task.saveTasks)
+        let savetask = Task(title: taskText, date: dateText, isFavorite: false)
+        var saveTasks = TaskManager.getData()
+        saveTasks.append(savetask)
+        TaskManager.saveData(task: saveTasks)
        
         navigationController?.popViewController(animated: true)
         

@@ -18,9 +18,6 @@ class Task :Codable{
         self.date = date
         self.isFavorite = isFavorite
     }
-    static var saveTasks:[Task] = [Task(title: "a", date: "w", isFavorite: false),
-                                   Task(title: "a", date: "w", isFavorite: false),
-                                   Task(title: "a", date: "w", isFavorite: false)]
     
 
 }

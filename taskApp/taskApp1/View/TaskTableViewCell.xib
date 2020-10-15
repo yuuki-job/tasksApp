@@ -40,7 +40,7 @@
                         <rect key="frame" x="266.5" y="0.0" width="67.5" height="55"/>
                         <state key="normal" image="pencil" catalog="system"/>
                         <connections>
-                            <action selector="apeendTask:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Xa1-rZ-fCY"/>
+                            <action selector="editTask:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Xa1-rZ-fCY"/>
                         </connections>
                     </button>
                 </subviews>
