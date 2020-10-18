@@ -119,114 +119,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D87717B0-2184-487F-9090-202055475507"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "taskApp1/Controller/TaskListViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
-            landmarkName = "TaskListViewController"
-            landmarkType = "3">
-            <Locations>
-               <Location
-                  uuid = "D87717B0-2184-487F-9090-202055475507 - f24312b71f73e93e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "taskApp1.TaskListViewController.receiveTitle.getter : Swift.String"
-                  moduleName = "taskApp1"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/tokunagaisamunozomi/tasksApp/taskApp/taskApp1/Controller/TaskListViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "21"
-                  endingLineNumber = "21"
-                  offsetFromSymbolStart = "139">
-               </Location>
-               <Location
-                  uuid = "D87717B0-2184-487F-9090-202055475507 - dc78615070e75afa"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "taskApp1.TaskListViewController.receiveTitle.setter : Swift.String"
-                  moduleName = "taskApp1"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/tokunagaisamunozomi/tasksApp/taskApp/taskApp1/Controller/TaskListViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "21"
-                  endingLineNumber = "21"
-                  offsetFromSymbolStart = "174">
-               </Location>
-               <Location
-                  uuid = "D87717B0-2184-487F-9090-202055475507 - 38fce83bfaafc541"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "taskApp1.TaskListViewController.receiveTitle.modify : Swift.String"
-                  moduleName = "taskApp1"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/tokunagaisamunozomi/tasksApp/taskApp/taskApp1/Controller/TaskListViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "18">
-               </Location>
-               <Location
-                  uuid = "D87717B0-2184-487F-9090-202055475507 - ca3707c60aa8de70"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "taskApp1.TaskListViewController.receiveTitle.modify : Swift.String with unmangled suffix &quot;.resume.0&quot;"
-                  moduleName = "taskApp1"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/tokunagaisamunozomi/tasksApp/taskApp/taskApp1/Controller/TaskListViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "21"
-                  endingLineNumber = "21"
-                  offsetFromSymbolStart = "4">
-               </Location>
-               <Location
-                  uuid = "D87717B0-2184-487F-9090-202055475507 - 7959fcb3bd9b2b81"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "taskApp1.TaskListViewController.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; taskApp1.TaskListViewController"
-                  moduleName = "taskApp1"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/tokunagaisamunozomi/tasksApp/taskApp/taskApp1/Controller/TaskListViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "21"
-                  endingLineNumber = "21"
-                  offsetFromSymbolStart = "863">
-               </Location>
-               <Location
-                  uuid = "D87717B0-2184-487F-9090-202055475507 - 85429ab2e9693986"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "taskApp1.TaskListViewController.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;taskApp1.TaskListViewController&gt;"
-                  moduleName = "taskApp1"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/tokunagaisamunozomi/tasksApp/taskApp/taskApp1/Controller/TaskListViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "21"
-                  endingLineNumber = "21"
-                  offsetFromSymbolStart = "798">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "FB1CCDEA-4FFF-4DBE-BB77-F568448427A7"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -234,9 +126,41 @@
             filePath = "taskApp1/Controller/TaskTableViewCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
             landmarkName = "editTask(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "947FD93B-C2B0-4516-8977-A9E7B34FC41C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "taskApp1/Controller/TaskListViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
+            landmarkName = "alertDisplay(title:date:indexEdit:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "89459551-95AC-4164-B125-9399B92B1090"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "taskApp1/Controller/TaskListViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
+            landmarkName = "alertDisplay(title:date:indexEdit:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

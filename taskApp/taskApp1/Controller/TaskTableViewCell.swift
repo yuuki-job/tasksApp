@@ -8,7 +8,7 @@
 
 import UIKit
 protocol TaskTableViewCellDelegate {
-    func alertDisplay()
+    func alertDisplay(title:String,date:String,indexEdit:Int)
 }
 class TaskTableViewCell: UITableViewCell, UITextFieldDelegate {
     
@@ -44,16 +44,10 @@ class TaskTableViewCell: UITableViewCell, UITextFieldDelegate {
         self.index = index
     }
     @IBAction func editTask(_ sender: Any) {
+        /*let storyboard = UIStoryboard(name: "Main", bundle: nil)
+         let tlVC = storyboard.instantiateViewController(withIdentifier: "TaskList") as! TaskListViewController*/
+        delegate?.alertDisplay(title: task[index].title, date: task[index].date,indexEdit:index)
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let tlVC = storyboard.instantiateViewController(withIdentifier: "TaskList")
-        if let tLVC = tlVC as? TaskListViewController {
-            tLVC.receiveTitle = task[index].title
-            tLVC.receiveIndex = String(index)
-            print(tLVC.receiveTitle)
-            delegate?.alertDisplay()
-            
-        }
     }
     
     @IBAction func heartButton(_ sender: Any) {
@@ -81,59 +75,6 @@ class TaskTableViewCell: UITableViewCell, UITextFieldDelegate {
         task[index].isFavorite = !isFavorite
         
     }
-    
-    /*let alert = UIAlertController(title: "タイトル", message: "メッセージ", preferredStyle:  .alert)
-     //タイトル変える時
-     alert.addTextField { (celllabel) in
-     celllabel.delegate = self
-     celllabel.placeholder = "タイトル変更"
-     }
-     //日付変える時
-     alert.addTextField { (dateLabel) in
-     dateLabel.delegate = self
-     dateLabel.placeholder = "日付変更"
-     }
-     let titleButton = UIAlertAction(title: "タイトル確定", style: UIAlertAction.Style.default, handler: {(action: UIAlertAction!) -> Void in
-     // ボタンが押された時のコード
-     let getD = TaskManager.getData()
-     
-     if let textField = alert.textFields?.first{
-     self.celllabel.text = textField.text
-     }
-     getD[self.index].title = self.celllabel.text ?? ""
-     
-     //getD[self.index]
-     TaskManager.saveData(task: getD)
-     
-     })
-     let dateButton = UIAlertAction(title: "日付確定", style: UIAlertAction.Style.default, handler: {(action: UIAlertAction!) -> Void in
-     
-     // ボタンが押された時のコード
-     let getD = TaskManager.getData()
-     
-     if let textField = alert.textFields?.first{
-     self.dateLabel.text = textField.text
-     }
-     getD[self.index].date = self.dateLabel.text ?? ""
-     
-     //getD[self.index]
-     TaskManager.saveData(task: getD)
-     
-     })
-     
-     let cancelButton = UIAlertAction(title: "キャンセル", style: UIAlertAction.Style.cancel, handler: {(action: UIAlertAction!) -> Void in
-     // ボタンが押された時のコード
-     
-     })
-     
-     
-     
-     alert.addAction(titleButton)
-     alert.addAction(dateButton)
-     alert.addAction(cancelButton)
-     
-     delegate!.present(alert, animated: true, completion: nil)
-     */
 }
 
 

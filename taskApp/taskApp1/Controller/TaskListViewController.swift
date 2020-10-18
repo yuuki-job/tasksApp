@@ -12,16 +12,11 @@ class TaskListViewController: UIViewController{
     
     var tasks:[Task] = []
     
-    var editBarButtonItem = UIBarButtonItem()
-    
     var  editSystem = true
     
-    var delegate:TaskTableViewCellDelegate?
-    
-    var receiveTitle = ""
-    var receiveIndex = ""
-    
     var datepickerView = UIDatePicker()
+    
+    var textField = UITextField()
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -35,9 +30,10 @@ class TaskListViewController: UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         //tasks = Task.saveTasks
         tasks = TaskManager.getData()
-      
+        
         tableView.reloadData()
     }
+    
     
     private func setupTableView() {
         tableView.delegate = self
@@ -72,63 +68,56 @@ class TaskListViewController: UIViewController{
             editSystem = true
         }
     }
-    /*override func setEditing(_ editing: Bool, animated: Bool) {
-     super.setEditing(editing, animated: animated)
-     tableView.isEditing = editing
-     print(editing)
-     }*/
 }
 extension TaskListViewController:TaskTableViewCellDelegate{
     
-    //デリゲート
-    func alertDisplay() {
+    //デリゲートメソッド
+    func alertDisplay(title: String, date: String,indexEdit:Int) {
         let alert = UIAlertController(title: "タイトル", message: "メッセージ", preferredStyle:  .alert)
-        //タイトル変える時
-        alert.addTextField { (textField:UITextField) in
+        
+        let getTask = TaskManager.getData()
+        //タイトルのテキストを作っている
+        alert.addTextField { (textField) in
             //celllabel.delegate = self
-            var getDT = TaskManager.getData()
-            
-            textField.text = self.receiveTitle
-            textField.tag = 1
+            //textField.textはテキストに表示されるテキスト
+            textField.text = title
             textField.placeholder = "タイトル変更"
         }
-        //日付変える時
+        //日付のテキストを作っている
         alert.addTextField { (textField) in
-            //dateLabel.delegate = self
+            // ピッカー設定
+            //ドキュメントとなんか違う
+            self.datepickerView.datePickerMode = UIDatePicker.Mode.date
+            self.datepickerView.timeZone = NSTimeZone.local
+            self.datepickerView.locale = Locale.current
             
-            textField.tag = 2
+            // 決定バーの生成
+            let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 35))
+            let spacelItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+            //doneは前のviewに戻る？
+            let doneItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.done))
+            //setItemsの中身はツールバーに表示する項目
+            toolbar.setItems([spacelItem, doneItem], animated: true)
+            // インプットビュー設定
+            textField.inputView = self.datepickerView
+            textField.inputAccessoryView = toolbar
+            
+            self.textField = textField
+            textField.text = date
             textField.placeholder = "日付変更"
         }
-        let titleButton = UIAlertAction(title: "タイトル確定", style: UIAlertAction.Style.default, handler: {(action: UIAlertAction!) -> Void in
-            // ボタンが押された時のコード
-            let getD = TaskManager.getData()
-            let useCellLabel = TaskTableViewCell()
+        // 確定ボタンが押された場合のコード
+        let confirmButton = UIAlertAction(title: "確定", style: UIAlertAction.Style.default, handler: {(action: UIAlertAction!) -> Void in
             
-            guard let textFields = alert.textFields else {
+            //let useCellLabel = TaskTableViewCell()
+            guard let title = alert.textFields?[0].text,let date = alert.textFields?[1].text else {
                 return
             }
-            for text in textFields {
-                if text.tag == 1 {
-                    useCellLabel.celllabel.text = text.text
-                    
-                } else {
-                    useCellLabel.dateLabel.text = text.text
-                }
-            }
-            TaskManager.saveData(task: getD)
-            
-        })
-        let dateButton = UIAlertAction(title: "日付確定", style: UIAlertAction.Style.default, handler: {(action: UIAlertAction!) -> Void in
-            
-            // ボタンが押された時のコード
-            let getD = TaskManager.getData()
-            
-            
-            if let textField = alert.textFields?.first{
-                //self.dateLabel.text = textField.text
-            }
-            //getD[self.index]
-            TaskManager.saveData(task: getD)
+            getTask[indexEdit].title = title
+            getTask[indexEdit].date = date
+            TaskManager.saveData(task: getTask)
+            self.tasks = getTask
+            self.tableView.reloadData()
             
         })
         
@@ -136,37 +125,16 @@ extension TaskListViewController:TaskTableViewCellDelegate{
             // ボタンが押された時のコード
             
         })
+        //tasks = TaskManager.getData()
         
-        alert.addAction(titleButton)
-        alert.addAction(dateButton)
+        alert.addAction(confirmButton)
         alert.addAction(cancelButton)
         
         present(alert, animated: true, completion: nil)
     }
-    func greatpicer() {
-        
-        // ピッカー設定
-        //ドキュメントとなんか違う
-        datepickerView.datePickerMode = UIDatePicker.Mode.date
-        datepickerView.timeZone = NSTimeZone.local
-        datepickerView.locale = Locale.current
-        
-        // 決定バーの生成
-        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 35))
-        let spacelItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
-        let doneItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
-        toolbar.setItems([spacelItem, doneItem], animated: true)
-            
-            
-            
-            // インプットビュー設定
-            
-        // .inputView = datepickerView
-        // dateTextField.inputAccessoryView = toolbar
-    }
     // 決定ボタン押下
     @objc func done() {
-        // dateTextField.endEditing(true)
+        textField.endEditing(true)
         
         // 日付のフォーマット
         let formatter = DateFormatter()
@@ -174,8 +142,9 @@ extension TaskListViewController:TaskTableViewCellDelegate{
         formatter.locale = Locale(identifier: "ja_JP")
         formatter.dateFormat = "yyyy-MM-dd"
         //dateは日付ピッカーによって表示される日付。また、ピッカーが作成された現在の日付
-        //dateTextField.text = (formatter.string(from: datepickerView.date))
+        textField.text = (formatter.string(from: datepickerView.date))
     }
+    
 }
 //tableViewのところ
 extension TaskListViewController:UITableViewDelegate,UITableViewDataSource{
